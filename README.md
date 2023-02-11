@@ -70,3 +70,10 @@ Sucess Response:
 mvn spring-boot:run
 ```
 
+
+[tc](https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx?op=TCKimlikNoDogrula)
+
+[sms](http://g.ajanswebsms.com/sms_soap/sms.asmx)
+
+
+for more information please visit [zorgundostu](https://zorgundostu.com)
