@@ -1,4 +1,4 @@
-package com.zorgundostu.integration.domain.notification.controller;
+package com.zorgundostu.integration.web;
 
 import com.zorgundostu.integration.domain.notification.model.notification.NotificationDto;
 import io.swagger.v3.oas.annotations.Operation;
