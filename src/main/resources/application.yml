@@ -1,1 +1,23 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api/zgd-integration/v1
+
+spring:
+  datasource:
+    url: jdbc:postgresql://zorgundostu-db:5432/zorgundostu
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+zgd:
+  sms:
+    username: asisttekno
+    password: 100223
+    vendor: 10000
+    header: ZORGUNDOSTU
+    charset: turkish
 
