@@ -12,6 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 zgd:
   sms:
@@ -24,5 +25,8 @@ zgd:
   identity:
     url: https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx
   shelter:
-    url: https://servisoagtest.icisleri.gov.tr/Services/Producer/EsbApi/GonulluKonutServisi/GonulluKonutKaydet
+    url: "https://servisoagtest.icisleri.gov.tr/Services/Producer/EsbApi/GonulluKonutServisi/GonulluKonutKaydet"
+    username: "0978002295908001"
+    password: "b47dfdd2d981d0575655b28360c85539"
+    apikey: "77E54B8B-F916-4D5D-A3E8-8959E08DFB5C"
 

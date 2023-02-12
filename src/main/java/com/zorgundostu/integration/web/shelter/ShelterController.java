@@ -23,6 +23,6 @@ public class ShelterController implements ShelterApi{
 
     @Override
     public ResponseEntity<Object> sendShelterOfferToTheMinistry(Map<String, String> header, ShelterDto shelterDto) {
-        return ResponseEntity.ok(shelterService.sendShelterOfferToTheMinistry(header, shelterDto));
+        return ResponseEntity.ok(shelterService.sendShelterOfferToTheMinistry(shelterDto));
     }
 }

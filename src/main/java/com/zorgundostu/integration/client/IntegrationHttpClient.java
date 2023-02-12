@@ -1,10 +1,10 @@
 package com.zorgundostu.integration.client;
 
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.AUTHORIZATION_KEY;
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.CONTENT_TYPE_KEY;
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.CORRELATION_ID;
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.SHELTER_HTTP_CLIENT;
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.TOKEN_KEY;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.AUTHORIZATION_KEY;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.CONTENT_TYPE_KEY;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.CORRELATION_ID;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.SHELTER_HTTP_CLIENT;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.TOKEN_KEY;
 import static com.zorgundostu.integration.constant.IntegrationConstants.SHELTER_OBJECT_MAPPER;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -34,12 +34,12 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class ShelterHttpClient {
+public class IntegrationHttpClient {
     private ObjectMapper objectMapper;
     private HttpClient httpClient;
 
 
-    public ShelterHttpClient(@Qualifier(SHELTER_OBJECT_MAPPER) ObjectMapper objectMapper, @Qualifier(SHELTER_HTTP_CLIENT) HttpClient httpClient) {
+    public IntegrationHttpClient(@Qualifier(SHELTER_OBJECT_MAPPER) ObjectMapper objectMapper, @Qualifier(SHELTER_HTTP_CLIENT) HttpClient httpClient) {
         this.objectMapper = objectMapper;
         this.httpClient = httpClient;
     }
@@ -192,8 +192,8 @@ public class ShelterHttpClient {
         if (ObjectUtils.isEmpty(headerMap)) {
             headerMap = new HashMap<>();
         }
-        headerMap.put(CORRELATION_ID, MDC.get(CORRELATION_ID));
-        headerMap.put(AUTHORIZATION_KEY, MDC.get(TOKEN_KEY));
+        //headerMap.put(CORRELATION_ID, MDC.get(CORRELATION_ID));
+        //headerMap.put(AUTHORIZATION_KEY, MDC.get(TOKEN_KEY));
 
         String[] headers;
         int i = 0;

@@ -1,6 +1,6 @@
 package com.zorgundostu.integration.client;
 
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.SHELTER_HTTP_CLIENT;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.SHELTER_HTTP_CLIENT;
 
 import java.net.http.HttpClient;
 import java.time.Duration;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Primary;
 
 @Getter
 @Configuration
-public class ShelterHttpClientConfig {
+public class IntegrationHttpClientConfig {
     @Value("${shelter.http.client.timeout:30}")
     private long connectionTimeout;
 

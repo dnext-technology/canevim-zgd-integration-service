@@ -52,6 +52,7 @@ public class NotificationService {
             message = notificationDto.getParameterValueByKey("content");
         } else message = content.getTr();
         String response = smsClient.sendSms(notificationDto.gsmList(), message);
+        log.info("SMS is sent to {}", response);
         notificationDto.addParameter("responseId", response.substring(response.indexOf("ID:") + 3, response.indexOf("</string>")));
     }
 

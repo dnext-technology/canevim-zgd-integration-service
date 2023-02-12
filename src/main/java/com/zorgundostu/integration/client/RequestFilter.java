@@ -1,11 +1,11 @@
 package com.zorgundostu.integration.client;
 
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.AUTHORIZATION_KEY;
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.BEARER_KEY;
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.CORRELATION_ID;
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.CORRELATION_ID_DATE_FORMAT;
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.CORRELATION_ID_PREFIX;
-import static com.zorgundostu.integration.client.ShelterHttpClientConstants.TOKEN_KEY;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.AUTHORIZATION_KEY;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.BEARER_KEY;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.CORRELATION_ID;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.CORRELATION_ID_DATE_FORMAT;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.CORRELATION_ID_PREFIX;
+import static com.zorgundostu.integration.client.IntegrationHttpClientConstants.TOKEN_KEY;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

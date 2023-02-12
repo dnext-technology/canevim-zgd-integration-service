@@ -1,7 +1,7 @@
 package com.zorgundostu.integration.client;
 
-public final class ShelterHttpClientConstants {
-    private ShelterHttpClientConstants(){}
+public final class IntegrationHttpClientConstants {
+    private IntegrationHttpClientConstants(){}
 
     /*Headers & Keys */
     public static final String X_FORWARDED_FOR_HEADER = "x-forwarded-for";
