@@ -15,9 +15,14 @@ spring:
 
 zgd:
   sms:
+    url: http://g.ajanswebsms.com/sms_soap/sms.asmx/send_sms
     username: asisttekno
     password: 100223
     vendor: 10000
     header: ZORGUNDOSTU
     charset: turkish
+  identity:
+    url: https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx
+  shelter:
+    url: https://servisoagtest.icisleri.gov.tr/Services/Producer/EsbApi/GonulluKonutServisi/GonulluKonutKaydet
 

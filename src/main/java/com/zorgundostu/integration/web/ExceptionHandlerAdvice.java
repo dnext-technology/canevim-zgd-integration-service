@@ -1,4 +1,4 @@
-package com.zorgundostu.integration.domain.notification.util;
+package com.zorgundostu.integration.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,6 +13,14 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(BadSqlGrammarException.class)
     public ResponseEntity<Object> handleException(BadSqlGrammarException e) {
         log.error("BadSqlGrammarException", e);
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(e.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception e) {
+        log.error("Exception", e);
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(e.getMessage());

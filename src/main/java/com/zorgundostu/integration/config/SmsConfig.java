@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "zgd.sms", ignoreUnknownFields = false)
 public class SmsConfig {
+
+    public String url;
     public String username;
     public String password;
     public String vendor;

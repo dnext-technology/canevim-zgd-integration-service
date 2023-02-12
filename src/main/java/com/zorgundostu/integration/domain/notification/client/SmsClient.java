@@ -18,7 +18,6 @@ public class SmsClient {
 
     private final SmsConfig smsConfig;
     private final RestTemplate restTemplate;
-    private static final String SMS_URL = "http://g.ajanswebsms.com/sms_soap/sms.asmx/send_sms";
 
     public SmsClient(SmsConfig smsConfig, RestTemplateBuilder restTemplateBuilder) {
         this.smsConfig = smsConfig;
@@ -44,7 +43,7 @@ public class SmsClient {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
-        ResponseEntity<String> response = this.restTemplate.postForEntity(SMS_URL, request, String.class);
+        ResponseEntity<String> response = this.restTemplate.postForEntity(smsConfig.url, request, String.class);
 
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             return "SMS sent successfully, response: " + response.getBody();

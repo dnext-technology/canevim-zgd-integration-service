@@ -1,6 +1,6 @@
-package com.zorgundostu.integration.web.notification;
+package com.zorgundostu.integration.web.identity;
 
-import com.zorgundostu.integration.domain.notification.model.notification.NotificationDto;
+import com.zorgundostu.integration.domain.identity.model.identity.IdentityDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 
-@Tag(name = "Notification", description = "Notification API")
+@Tag(name = "IdentityApi", description = "Identity API")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping(path = "/notifications")
-public interface NotificationApi {
+@RequestMapping(path = "/identities")
+public interface IdentityApi {
 
-    @Operation(operationId = "createNotification", summary = "Creates and sends identity item.")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = NotificationDto.class))),
-            @ApiResponse(responseCode = "201", description = "Created", content = @Content(schema = @Schema(implementation = NotificationDto.class))),
+    @Operation(operationId = "identityNumberVerification", summary = "Validates identity number")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = IdentityDto.class))),
+            @ApiResponse(responseCode = "201", description = "Created", content = @Content(schema = @Schema(implementation = IdentityDto.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(schema = @Schema(implementation = Error.class))),
@@ -30,13 +30,13 @@ public interface NotificationApi {
             @ApiResponse(responseCode = "409", description = "Conflict", content = @Content(schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
-    @PostMapping(produces = {"application/json;charset=utf-8"})
-    ResponseEntity<Object> createNotification(@RequestHeader Map<String, String> header, @Valid @RequestBody NotificationDto notificationDto);
+    @PostMapping(path = "/identity-number-verification", produces = {"application/json;charset=utf-8"})
+    ResponseEntity<Object> identityNumberVerification(@RequestHeader Map<String, String> header, @Valid @RequestBody IdentityDto identityDto);
 
 
-    @Operation(operationId = "getAllNotifications", summary = "Gets all notifications.")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = NotificationDto.class))),
-            @ApiResponse(responseCode = "201", description = "Created", content = @Content(schema = @Schema(implementation = NotificationDto.class))),
+    @Operation(operationId = "getAllIdentities", summary = "Gets all identities")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = IdentityDto.class))),
+            @ApiResponse(responseCode = "201", description = "Created", content = @Content(schema = @Schema(implementation = IdentityDto.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(schema = @Schema(implementation = Error.class))),
@@ -46,7 +46,7 @@ public interface NotificationApi {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @GetMapping(produces = {"application/json;charset=utf-8"})
-    ResponseEntity<Object> getAllNotifications(
+    ResponseEntity<Object> getAllIdentities(
             @RequestHeader Map<String, String> header,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer size);
