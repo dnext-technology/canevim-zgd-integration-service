@@ -1,4 +1,4 @@
-package com.zorgundostu.integration.domain.shelter.model.shelter;
+package com.zorgundostu.integration.domain.shelter.model;
 
 public record ShelterDto(
         String id,
