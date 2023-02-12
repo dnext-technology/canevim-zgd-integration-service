@@ -1,7 +1,9 @@
 package com.zorgundostu.integration.domain.identity.model.identity;
 
 import com.zorgundostu.integration.domain.identity.model.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data

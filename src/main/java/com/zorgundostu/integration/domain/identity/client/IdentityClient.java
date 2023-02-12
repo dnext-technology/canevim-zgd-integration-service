@@ -1,53 +1,88 @@
 package com.zorgundostu.integration.domain.identity.client;
 
-import com.zorgundostu.integration.config.gen.TCKimlikNoDogrula;
-import com.zorgundostu.integration.config.gen.TCKimlikNoDogrulaError;
-import com.zorgundostu.integration.config.gen.TCKimlikNoDogrulaResponse;
+import com.zorgundostu.integration.config.SoapClientConfig;
+import com.zorgundostu.integration.domain.identity.model.identity.TCKimlikNoDogrula;
 import com.zorgundostu.integration.domain.identity.model.Header;
 import com.zorgundostu.integration.domain.identity.model.identity.IdentityDto;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ws.client.core.WebServiceTemplate;
-import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
+import okhttp3.*;
+import org.springframework.stereotype.Service;
 import org.springframework.ws.soap.SoapHeaderElement;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.xml.namespace.QName;
 import javax.xml.transform.dom.DOMSource;
+import java.io.IOException;
 import java.util.Iterator;
 
 @Slf4j
-public class IdentityClient extends WebServiceGatewaySupport {
+@Service
+@AllArgsConstructor
+public class IdentityClient {
 
-    private final static QName Header_QNAME = new QName("http://schemas.xmlsoap.org/soap/envelope/", "Header", "SOAP-ENV");
-    private final static QName _Source_QNAME = new QName("http://group.vodafone.com/contract/vho/header/v1", "Source", "ek1");
-    private final static QName _System_QNAME = new QName("http://group.vodafone.com/contract/vho/header/v1", "System", "ek1");
-
+    private final SoapClientConfig soapClientConfig;
     public boolean verifyIdentityNumber(IdentityDto identityDto) {
+
+        TCKimlikNoDogrula tcKimlikNoDogrulaRequest = new TCKimlikNoDogrula();
+        tcKimlikNoDogrulaRequest.setAd(identityDto.name());
+        tcKimlikNoDogrulaRequest.setSoyad(identityDto.surname());
+        tcKimlikNoDogrulaRequest.setDogumYili(Integer.parseInt(identityDto.birthYear().trim()));
+        tcKimlikNoDogrulaRequest.setTcKimlikNo(Long.parseLong(identityDto.identityNumber().trim()));
+
+        String responseBody = sendOkHttpRequest(tcKimlikNoDogrulaRequest);
+        return handleResponse(responseBody);
+
+    }
+
+    private boolean handleResponse(String responseBody) {
+        if (responseBody == null || responseBody.contains("soap:Fault") || !responseBody.contains("<TCKimlikNoDogrulaResult>")
+                || !responseBody.contains("</TCKimlikNoDogrulaResult>")) {
+            return false;
+        }
+        String result = responseBody.substring(responseBody.indexOf("<TCKimlikNoDogrulaResult>") + 25, responseBody.indexOf("</TCKimlikNoDogrulaResult>"));
+        if (result == null || result.isEmpty()) {
+            return false;
+        }
+        if (result.equals("true") || result.equals("false")) {
+            return Boolean.parseBoolean(result);
+        }
+        return false;
+    }
+
+    private String sendOkHttpRequest(TCKimlikNoDogrula tcKimlikNoDogrulaRequest) {
         try {
-            TCKimlikNoDogrula tcKimlikNoDogrulaRequest = new TCKimlikNoDogrula();
-            tcKimlikNoDogrulaRequest.setAd(identityDto.name());
-            tcKimlikNoDogrulaRequest.setSoyad(identityDto.surname());
-            tcKimlikNoDogrulaRequest.setDogumYili(Integer.parseInt(identityDto.birthYear().trim()));
-            tcKimlikNoDogrulaRequest.setTCKimlikNo(Long.parseLong(identityDto.identityNumber().trim()));
-
-            JAXBContext jaxbContext = JAXBContext.newInstance(TCKimlikNoDogrula.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            jaxbMarshaller.marshal(tcKimlikNoDogrulaRequest, System.out);
-
-            WebServiceTemplate webServiceTemplate = getWebServiceTemplate();
-
-            TCKimlikNoDogrulaResponse verifyIdentityNumberResponse =
-                    (TCKimlikNoDogrulaResponse) webServiceTemplate.marshalSendAndReceive(tcKimlikNoDogrulaRequest
-                            , new SoapRequestHeaderModifier()
-                    );
-                return false;
-//            return verifyIdentityNumberResponse.isTCKimlikNoDogrulaResult();
-        } catch (JAXBException e) {
+            OkHttpClient client = new OkHttpClient().newBuilder().build();
+            MediaType mediaType = MediaType.parse("text/xml; charset=utf-8");
+            StringBuilder message = new StringBuilder();
+            message.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                    "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
+                    "  <soap:Body>\n" +
+                    "    <TCKimlikNoDogrula xmlns=\"http://tckimlik.nvi.gov.tr/WS\">\n" +
+                    "      <TCKimlikNo>");
+            message.append(tcKimlikNoDogrulaRequest.getTcKimlikNo());
+            message.append("</TCKimlikNo>\n" +
+                    "      <Ad>");
+            message.append(tcKimlikNoDogrulaRequest.getAd());
+            message.append("</Ad>\n" +
+                    "      <Soyad>");
+            message.append(tcKimlikNoDogrulaRequest.getSoyad());
+            message.append("</Soyad>\n" +
+                    "      <DogumYili>");
+            message.append(tcKimlikNoDogrulaRequest.getDogumYili());
+            message.append("</DogumYili>\n" +
+                    "    </TCKimlikNoDogrula>\n" +
+                    "  </soap:Body>\n" +
+                    "</soap:Envelope> ");
+            RequestBody body = RequestBody.create(mediaType, message.toString());
+            Request request = new Request.Builder().url(soapClientConfig.getUrl()).method("POST", body).addHeader("Content-Type", "text/xml; charset=utf-8").addHeader("SOAPAction", "http://tckimlik.nvi.gov.tr/WS/TCKimlikNoDogrula").addHeader("Host", "tckimlik.nvi.gov.tr").addHeader("Cookie", "TS0193588c=01e4b30442edcea2748d7b071d9023fa73ac48293e12d529c463088dd409e9bc94eaa2357ad87d9ea232fbf3d92c10d36ed72c0555").build();
+            Response response = client.newCall(request).execute();
+            String responseBody = response.body().string();
+            log.info("response: {}", responseBody);
+            return responseBody;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
