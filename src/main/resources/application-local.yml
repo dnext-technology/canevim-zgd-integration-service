@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/zorgundostu
+    url: jdbc:postgresql://localhost:5432/canevim
     username: test
     password: test
     driver-class-name: org.postgresql.Driver

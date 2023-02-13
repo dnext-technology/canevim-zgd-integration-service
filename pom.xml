@@ -8,7 +8,7 @@
 		<version>3.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.zorgundostu.integration</groupId>
+	<groupId>com.canevim.integration</groupId>
 	<artifactId>zgd-integration-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>zgd-integration-service</name>
