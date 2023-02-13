@@ -1,4 +1,4 @@
-# zgd-integration-service
+# canevim-integration-service
 
 The integration service is a microservice that provides the integration between the ZGD and the third party platform. It
 is responsible for the following tasks:
@@ -25,7 +25,7 @@ Body:
   "type": "SMS",
   "content": "OTHER",
   "gsmList": [
-    "05399461708"
+    "05526243464"
   ],
   "parameterList": [
     {
@@ -46,7 +46,7 @@ Sucess Response:
     "type": "SMS",
     "content": "OTHER",
     "gsmList": [
-        "05399461708"
+        "05526243464"
     ],
     "parameterList": [
         {
@@ -92,4 +92,3 @@ mvn spring-boot:run
 
 [sms](http://g.ajanswebsms.com/sms_soap/sms.asmx)
 
-for more information please visit [zorgundostu](https://zorgundostu.com)
