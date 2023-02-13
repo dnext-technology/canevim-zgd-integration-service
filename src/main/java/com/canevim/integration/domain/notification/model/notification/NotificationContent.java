@@ -1,7 +1,7 @@
 package com.canevim.integration.domain.notification.model.notification;
 
 public enum NotificationContent {
-    WELCOME("Zorgundostu'ya hoşgeldiniz", "Welcome to Zorgundostu"),
+    WELCOME("CANEVIM'e hoşgeldiniz", "Welcome to CANEVIM"),
     CONFIRMATION("Hesabınızı onaylayın", "Confirm your account"),
     PASSWORD_RESET("Şifrenizi sıfırlayın", "Reset your password"),
     PASSWORD_CHANGED("Şifreniz değiştirildi", "Your password has been changed"),
