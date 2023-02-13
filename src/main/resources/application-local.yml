@@ -6,8 +6,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/canevim
-    username: test
-    password: test
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -20,7 +20,7 @@ zgd:
     username: asisttekno
     password: 100223
     vendor: 10000
-    header: ZORGUNDOSTU
+    header: CANEViM
     charset: turkish
   identity:
     url: https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx
