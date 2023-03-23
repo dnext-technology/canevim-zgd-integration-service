@@ -4,8 +4,10 @@ server:
     context-path: /api/zgd-integration/v1
 
 spring:
+  profiles:
+    active: local
   datasource:
-    url: jdbc:postgresql://zorgundostu-db:5432/zorgundostu
+    url: jdbc:postgresql://zorgundostu-db:5432/canevim
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -14,13 +16,14 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+
 zgd:
   sms:
     url: http://g.ajanswebsms.com/sms_soap/sms.asmx/send_sms
     username: asisttekno
     password: 100223
     vendor: 10000
-    header: ZORGUNDOSTU
+    header: CANEViM
     charset: turkish
   identity:
     url: https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx
@@ -29,4 +32,5 @@ zgd:
     username: "0978002295908001"
     password: "b47dfdd2d981d0575655b28360c85539"
     apikey: "77E54B8B-F916-4D5D-A3E8-8959E08DFB5C"
+
 
